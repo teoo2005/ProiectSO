@@ -1,0 +1,34 @@
+#!/bin/bash
+
+while true; do
+    echo -e "\nMeniu:"
+    echo "1. Înregistrare utilizator"
+    echo "2. Autentificare utilizator"
+    echo "3. Logout utilizator"
+    echo "4. Modificare parolă"
+    echo "5. Ieșire"
+    echo "Alegeți o opțiune:"
+    read option
+
+    case $option in
+        1)
+            ./inregistrare_utilizator.sh  # Apelăm scriptul de înregistrare
+            ;;
+        2)
+            ./autentificare_utilizator.sh  # Apelăm scriptul de autentificare
+            ;;
+        3)
+            ./logout_utilizator.sh  # Apelăm scriptul de logout
+            ;;
+        4)
+            ./modificare_parola.sh  # Apelăm scriptul de modificare a parolei
+            ;;
+        5)
+            echo "Ieșire din program."
+            break
+            ;;
+        *)
+            echo "Opțiune invalidă. Vă rugăm să selectați din nou."
+            ;;
+    esac
+done
