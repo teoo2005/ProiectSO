@@ -1,0 +1,21 @@
+#!/bin/bash
+
+echo "Introduceți numele de utilizator pentru schimbarea parolei:"
+read username
+
+# Verificăm dacă utilizatorul există
+user_line=$(grep "^$username," utilizatori.csv)
+
+if [ -z "$user_line" ]; then
+    echo "Utilizatorul $username nu există."
+    exit 1
+fi
+
+# Continuăm cu schimbarea parolei
+echo "Introduceți noua parolă:"
+read -s new_password
+new_password_hash=$(echo -n "$new_password" | sha256sum | awk '{print $1}')
+
+# Actualizăm fișierul utilizatori.csv cu noua parolă
+sed -i "s/^$username,[^,]*,[^,]*,[^,]*$/$username,$new_password_hash/" utilizatori.csv
+echo "Parola a fost schimbată cu succes pentru $username."
