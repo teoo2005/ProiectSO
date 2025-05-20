@@ -1,0 +1,61 @@
+#!/bin/bash
+
+echo "Introduceți numele de utilizator pentru înregistrare:"
+read username
+
+# Verificăm dacă utilizatorul există deja în fișierul utilizatori.csv
+grep -q "^$username," utilizatori.csv
+if [ $? -eq 0 ]; then
+    echo "Utilizatorul $username există deja. Alegeți un alt nume de utilizator."
+    exit 1
+fi
+
+# Solicităm adresa de email
+echo "Introduceți adresa de email:"
+read email
+
+# Verificăm dacă email-ul există deja în fișierul CSV
+grep -q "^$email," utilizatori.csv
+if [ $? -eq 0 ]; then
+    echo "Adresa de email $email este deja înregistrată. Vă rugăm să alegeți un alt email."
+    exit 1
+fi
+
+# Validăm adresa de email folosind un regex simplu
+echo "$email" | grep -E -q "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
+if [ $? -ne 0 ]; then
+    echo "Adresa de email introdusă nu este validă. Vă rugăm să introduceți un email valid (ex: exemplu@domeniu.com)."
+    exit 1
+fi
+
+# Solicităm parola
+echo "Introduceți parola (minim 8 caractere, cel puțin o cifră):"
+read -s password
+
+# Validăm complexitatea parolei (minim 8 caractere și cel puțin o cifră)
+if [ ${#password} -lt 8 ] || [[ ! "$password" =~ [0-9] ]]; then
+    echo "Parola trebuie să aibă cel puțin 8 caractere și să conțină cel puțin o cifră."
+    exit 1
+fi
+
+# Criptăm parola folosind sha256sum
+password_hash=$(echo -n "$password" | sha256sum | awk '{print $1}')
+
+# Descompunem calculul ID-ului utilizatorului
+line_count=$(wc -l < utilizatori.csv)   # numărul de linii din fișier
+user_id=$((line_count + 1))             # adăugăm 1 pentru a obține ID-ul
+
+# Creăm directorul home pentru utilizator, folosind ID-ul
+mkdir -p "/home/$user_id"
+echo "Directorul home pentru utilizatorul $username a fost creat la /home/$user_id."
+
+# Adăugăm utilizatorul în fișierul utilizatori.csv
+echo "$user_id,$username,$email,$password_hash" >> utilizatori.csv
+echo "Utilizatorul $username a fost adăugat în fișierul utilizatori.csv."
+
+# Confirmăm înregistrarea
+echo "Înregistrarea a fost realizată cu succes!"
+echo "ID Utilizator: $user_id"
+echo "Nume Utilizator: $username"
+echo "Email: $email"
+echo "Parola criptată: $password_hash"
