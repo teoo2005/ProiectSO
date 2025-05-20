@@ -45,6 +45,10 @@ while true; do
     echo "Acesta este directorul personal unde puteți salva fișierele sau face modificări."
     cd "/home/$user_id"
 
+# Adăugăm utilizatorul la lista de utilizatori autentificați
+    logged_in_users+=("$user")
+    echo "Utilizatorul $user este acum autentificat."
+
     # Iesim din bucla while dacă autentificarea a avut succes
     break
 done
