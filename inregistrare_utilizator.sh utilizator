@@ -11,40 +11,46 @@ while true; do
         continue
     fi
 
-    #  Adresa de email
-    echo "Introduceti adresa de email:"
-    read email
+    # Adresa de email
+    while true; do
+        echo "Introduceti adresa de email:"
+        read email
 
-    # Verificam daca email-ul este cu gmail.com la final 
-    echo "$email" | grep -E -q "@gmail\.com$"
-    if [ $? -ne 0 ]; then
-        echo "Eroare: Adresa de email trebuie sa fie de tipul @gmail.com. Va rugam sa introduceti un email valid de Gmail."
-        continue
-    fi
+        # Verificam daca email-ul este cu gmail.com la final
+        echo "$email" | grep -E -q "@gmail\.com$"
+        if [ $? -ne 0 ]; then
+            echo "Eroare: Adresa de email trebuie sa fie de tipul @gmail.com. Va rugam sa introduceti un email valid de Gmail."
+            continue
+        fi
 
-    # Verificam daca email-ul exista deja 
-    grep -q "^$email," utilizatori.csv
-    if [ $? -eq 0 ]; then
-        echo "Eroare: Adresa de email $email este deja inregistrata. Va rugam sa alegeti un alt email."
-        continue
-    fi
+        # Verificam daca email-ul exista deja
+        grep -q "^$email," utilizatori.csv
+        if [ $? -eq 0 ]; then
+            echo "Eroare: Adresa de email $email este deja inregistrata. Va rugam sa alegeti un alt email."
+            continue
+        fi
 
-    # Validam adresa de email folosind regex
-    echo "$email" | grep -E -q "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
-    if [ $? -ne 0 ]; then
-        echo "Eroare: Adresa de email introdusa nu este valida. Va rugam sa introduceti un email valid (ex: exemplu@domeniu.com)."
-        continue
-    fi
+        # Validam adresa de email folosind regex
+        echo "$email" | grep -E -q "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
+        if [ $? -ne 0 ]; then
+            echo "Eroare: Adresa de email introdusa nu este valida. Va rugam sa introduceti un email valid (ex: exemplu@domeniu.com)."
+            continue
+        fi
+        break
+    done
 
     # Solicitam parola
-    echo "Introduceti parola (minim 8 caractere, cel putin o cifra):"
-    read -s parola
+    while true; do
+        echo "Introduceti parola (minim 8 caractere, cel putin o cifra):"
+        read -s parola
 
-    # Validam complexitatea parolei (minim 8 caractere si cel putin o cifra)
-    if [ ${#parola} -lt 8 ] || [[ ! "$parola" =~ [0-9] ]]; then
-        echo "Parola trebuie sa aiba cel putin 8 caractere si sa contina cel putin o cifra."
-        continue
-    fi
+        # Validam complexitatea parolei (minim 8 caractere si cel putin o cifra)
+        if [ ${#parola} -lt 8 ] || [[ ! "$parola" =~ [0-9] ]]; then
+            echo "Eroare: Parola trebuie sa aiba cel putin 8 caractere si sa contina cel putin o cifra."
+            continue
+        fi
+        break
+    done
 
     # Criptam parola folosind sha256sum
     parolahash=$(echo -n "$parola" | sha256sum | awk '{print $1}')
