@@ -1,79 +1,78 @@
 #!/bin/bash
 
 while true; do
-    echo "Introduceți numele de utilizator pentru înregistrare:"
-    read username
+    echo "Introduceti numele de utilizator pentru inregistrare:"
+    read nume
 
-    # Verificăm dacă utilizatorul există deja în fișierul utilizatori.csv
-    grep -q "^$username," utilizatori.csv
+    # Verifica daca utilizatorul exista deja in fisierul utilizatori.csv
+    grep -q "^$nume," utilizatori.csv
     if [ $? -eq 0 ]; then
-        echo "Eroare: Utilizatorul $username există deja. Alegeți un alt nume de utilizator."
+        echo "Eroare: Utilizatorul $nume exista deja. Alegeti un alt nume de utilizator."
         continue
     fi
 
-    # Solicităm adresa de email
-    echo "Introduceți adresa de email:"
+    # Adresa de email
+    echo "Introduceti adresa de email:"
     read email
 
-    # Verificăm dacă email-ul este de tipul gmail.com
+    # Verificam daca email-ul este de tipul gmail.com
     echo "$email" | grep -E -q "@gmail\.com$"
     if [ $? -ne 0 ]; then
-        echo "Eroare: Adresa de email trebuie să fie de tipul @gmail.com. Vă rugăm să introduceți un email valid de Gmail."
+        echo "Eroare: Adresa de email trebuie sa fie de tipul @gmail.com. Va rugam sa introduceti un email valid de Gmail."
         continue
     fi
 
-    # Verificăm dacă email-ul există deja în fișierul CSV
+    # Verificam daca email-ul exista deja in fisierul CSV
     grep -q "^$email," utilizatori.csv
     if [ $? -eq 0 ]; then
-        echo "Eroare: Adresa de email $email este deja înregistrată. Vă rugăm să alegeți un alt email."
+        echo "Eroare: Adresa de email $email este deja inregistrata. Va rugam sa alegeti un alt email."
         continue
     fi
 
-    # Validăm adresa de email folosind un regex simplu
+    # Validam adresa de email folosind un regex simplu
     echo "$email" | grep -E -q "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
     if [ $? -ne 0 ]; then
-        echo "Eroare: Adresa de email introdusă nu este validă. Vă rugăm să introduceți un email valid (ex: exemplu@domeniu.com)."
+        echo "Eroare: Adresa de email introdusa nu este valida. Va rugam sa introduceti un email valid (ex: exemplu@domeniu.com)."
         continue
     fi
 
-    # Solicităm parola
-    echo "Introduceți parola (minim 8 caractere, cel puțin o cifră):"
-    read -s password
+    # Solicitam parola
+    echo "Introduceti parola (minim 8 caractere, cel putin o cifra):"
+    read -s parola
 
-    # Validăm complexitatea parolei (minim 8 caractere și cel puțin o cifră)
-    if [ ${#password} -lt 8 ] || [[ ! "$password" =~ [0-9] ]]; then
-        echo "Parola trebuie să aibă cel puțin 8 caractere și să conțină cel puțin o cifră."
+    # Validam complexitatea parolei (minim 8 caractere si cel putin o cifra)
+    if [ ${#parola} -lt 8 ] || [[ ! "$parola" =~ [0-9] ]]; then
+        echo "Parola trebuie sa aiba cel putin 8 caractere si sa contina cel putin o cifra."
         continue
     fi
 
-    # Criptăm parola folosind sha256sum
-    password_hash=$(echo -n "$password" | sha256sum | awk '{print $1}')
+    # Criptam parola folosind sha256sum
+    parolahash=$(echo -n "$parola" | sha256sum | awk '{print $1}')
 
     # Descompunem calculul ID-ului utilizatorului
-    line_count=$(wc -l < utilizatori.csv)   # numărul de linii din fișier
-    user_id=$((line_count + 1))             # adăugăm 1 pentru a obține ID-ul
+    line_count=$(wc -l < utilizatori.csv)   # numarul de linii din fisier
+    user_id=$((line_count + 1))             # adaugam 1 pentru a obtine ID-ul
 
-    # Creăm directorul home pentru utilizator, folosind ID-ul
+    # Cream directorul home pentru utilizator, folosind ID-ul
     mkdir -p "/home/$user_id"
-    echo "Directorul home pentru utilizatorul $username a fost creat la /home/$user_id."
+    echo "Directorul home pentru utilizatorul $nume a fost creat la /home/$user_id."
 
-    # Adăugăm utilizatorul în fișierul utilizatori.csv
-    echo "$user_id,$username,$email,$password_hash" >> utilizatori.csv
-    echo "Utilizatorul $username a fost adăugat în fișierul utilizatori.csv."
+    # Adaugam utilizatorul in fisierul utilizatori.csv
+    echo "$user_id,$nume,$email,$parolahash" >> utilizatori.csv
+    echo "Utilizatorul $nume a fost adaugat in fisierul utilizatori.csv."
 
-    # Confirmăm înregistrarea
-    echo "Înregistrarea a fost realizată cu succes!"
+    # Confirmam inregistrarea
+    echo "Inregistrarea a fost realizata cu succes!"
     echo "ID Utilizator: $user_id"
-    echo "Nume Utilizator: $username"
+    echo "Nume Utilizator: $nume"
     echo "Email: $email"
-    echo "Parola criptată: $password_hash"
+    echo "Parola criptata: $parolahash"
 
     # Trimiterea unui email de confirmare
-    echo -e "Subject: Salut $username,contul este gata!" | msmtp $email
+    echo -e "Subject: Salut $nume, contul este gata!" | msmtp $email
 
     echo "Email de confirmare a fost trimis la adresa $email."
 
-    # Ieșim din bucla while dacă totul a fost corect
+    # Iesim din bucla while daca totul a fost corect
     break
 done
-
