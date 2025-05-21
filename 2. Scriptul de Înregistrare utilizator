@@ -15,6 +15,13 @@ while true; do
     echo "Introduceți adresa de email:"
     read email
 
+    # Verificăm dacă email-ul este de tipul gmail.com
+    echo "$email" | grep -E -q "@gmail\.com$"
+    if [ $? -ne 0 ]; then
+        echo "Eroare: Adresa de email trebuie să fie de tipul @gmail.com. Vă rugăm să introduceți un email valid de Gmail."
+        continue
+    fi
+
     # Verificăm dacă email-ul există deja în fișierul CSV
     grep -q "^$email," utilizatori.csv
     if [ $? -eq 0 ]; then
@@ -34,13 +41,8 @@ while true; do
     read -s password
 
     # Validăm complexitatea parolei (minim 8 caractere și cel puțin o cifră)
-    if [ ${#password} -lt 8 ]; then
-        echo "Eroare: Parola trebuie să aibă cel puțin 8 caractere."
-        continue
-    fi
-
-    if [[ ! "$password" =~ [0-9] ]]; then
-        echo "Eroare: Parola trebuie să conțină cel puțin o cifră."
+    if [ ${#password} -lt 8 ] || [[ ! "$password" =~ [0-9] ]]; then
+        echo "Parola trebuie să aibă cel puțin 8 caractere și să conțină cel puțin o cifră."
         continue
     fi
 
@@ -66,8 +68,8 @@ while true; do
     echo "Email: $email"
     echo "Parola criptată: $password_hash"
 
-    # Trimiterea unui email de confirmare folosind msmtp
-    echo -e "Subject: Confirmare înregistrare cont\n\nSalut $username,\n\nContul dumneavoastră a fost creat cu succes pe platforma noastră. Acum aveți acces complet la funcționalitățile contului.\n\nVă mulțumim că ați ales serviciile noastre!\n\nCu respect,\nEchipa noastră" | msmtp $email
+    # Trimiterea unui email de confirmare
+    echo -e "Subject: Salut $username,contul este gata!" | msmtp $email
 
     echo "Email de confirmare a fost trimis la adresa $email."
 
