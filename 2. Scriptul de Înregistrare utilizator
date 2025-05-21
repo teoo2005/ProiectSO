@@ -7,7 +7,7 @@ while true; do
     # Verificăm dacă utilizatorul există deja în fișierul utilizatori.csv
     grep -q "^$username," utilizatori.csv
     if [ $? -eq 0 ]; then
-        echo "Utilizatorul $username există deja. Alegeți un alt nume de utilizator."
+        echo "Eroare: Utilizatorul $username există deja. Alegeți un alt nume de utilizator."
         continue
     fi
 
@@ -18,14 +18,14 @@ while true; do
     # Verificăm dacă email-ul există deja în fișierul CSV
     grep -q "^$email," utilizatori.csv
     if [ $? -eq 0 ]; then
-        echo "Adresa de email $email este deja înregistrată. Vă rugăm să alegeți un alt email."
+        echo "Eroare: Adresa de email $email este deja înregistrată. Vă rugăm să alegeți un alt email."
         continue
     fi
 
     # Validăm adresa de email folosind un regex simplu
     echo "$email" | grep -E -q "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
     if [ $? -ne 0 ]; then
-        echo "Adresa de email introdusă nu este validă. Vă rugăm să introduceți un email valid (ex: exemplu@domeniu.com)."
+        echo "Eroare: Adresa de email introdusă nu este validă. Vă rugăm să introduceți un email valid (ex: exemplu@domeniu.com)."
         continue
     fi
 
@@ -34,8 +34,13 @@ while true; do
     read -s password
 
     # Validăm complexitatea parolei (minim 8 caractere și cel puțin o cifră)
-    if [ ${#password} -lt 8 ] || [[ ! "$password" =~ [0-9] ]]; then
-        echo "Parola trebuie să aibă cel puțin 8 caractere și să conțină cel puțin o cifră."
+    if [ ${#password} -lt 8 ]; then
+        echo "Eroare: Parola trebuie să aibă cel puțin 8 caractere."
+        continue
+    fi
+
+    if [[ ! "$password" =~ [0-9] ]]; then
+        echo "Eroare: Parola trebuie să conțină cel puțin o cifră."
         continue
     fi
 
@@ -61,6 +66,12 @@ while true; do
     echo "Email: $email"
     echo "Parola criptată: $password_hash"
 
+    # Trimiterea unui email de confirmare folosind msmtp
+    echo -e "Subject: Confirmare înregistrare cont\n\nSalut $username,\n\nContul dumneavoastră a fost creat cu succes pe platforma noastră. Acum aveți acces complet la funcționalitățile contului.\n\nVă mulțumim că ați ales serviciile noastre!\n\nCu respect,\nEchipa noastră" | msmtp $email
+
+    echo "Email de confirmare a fost trimis la adresa $email."
+
     # Ieșim din bucla while dacă totul a fost corect
     break
 done
+
