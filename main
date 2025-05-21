@@ -12,7 +12,7 @@ while true; do
 
     case $option in
         1)
-            ./inregistrare_utilizator.sh  # Apelăm scriptul de înregistrare
+            source inregistrare_utilizator.sh  # Apelăm scriptul de înregistrare
             ;;
         2)
             ./autentificare_utilizator.sh  # Apelăm scriptul de autentificare
