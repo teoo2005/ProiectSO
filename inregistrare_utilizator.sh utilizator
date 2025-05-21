@@ -11,25 +11,25 @@ while true; do
         continue
     fi
 
-    # Adresa de email
+    #  Adresa de email
     echo "Introduceti adresa de email:"
     read email
 
-    # Verificam daca email-ul este de tipul gmail.com
+    # Verificam daca email-ul este cu gmail.com la final 
     echo "$email" | grep -E -q "@gmail\.com$"
     if [ $? -ne 0 ]; then
         echo "Eroare: Adresa de email trebuie sa fie de tipul @gmail.com. Va rugam sa introduceti un email valid de Gmail."
         continue
     fi
 
-    # Verificam daca email-ul exista deja in fisierul CSV
+    # Verificam daca email-ul exista deja 
     grep -q "^$email," utilizatori.csv
     if [ $? -eq 0 ]; then
         echo "Eroare: Adresa de email $email este deja inregistrata. Va rugam sa alegeti un alt email."
         continue
     fi
 
-    # Validam adresa de email folosind un regex simplu
+    # Validam adresa de email folosind regex
     echo "$email" | grep -E -q "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
     if [ $? -ne 0 ]; then
         echo "Eroare: Adresa de email introdusa nu este valida. Va rugam sa introduceti un email valid (ex: exemplu@domeniu.com)."
