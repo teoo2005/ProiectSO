@@ -11,8 +11,8 @@ while true; do
     # Dacă utilizatorul nu este găsit, afișăm mesaj detaliat și cerem din nou numele
     if [ -z "$line" ]; then
         echo "Eroare: Utilizatorul $user nu există înregistrat. Vă rugăm să vă înregistrați mai întâi."
-        echo "Vă rugăm să introduceți un nume de utilizator corect."
-        continue
+        echo "Vă rugam mergeti in meniul principal la "inregistrare" " 
+          exit 1 
     fi
 
     # Extragem parola criptată
