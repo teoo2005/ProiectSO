@@ -33,11 +33,10 @@ while true; do
 
     # Daca parola este corecta, actualizam campul last_login
     date_now=$(date '+%Y-%m-%d %H:%M:%S')
-    # (Update last_login daca vrei)
-    # sed -i ...
+    sed -i "s/^$user,[^,]*,[^,]*,[^,]*$/&,$date_now/" utilizatori.csv
 
     # Extragem user_id
-    user_id=$(echo $line | cut -d',' -f1)
+    user_id=$(echo "$line" | cut -d',' -f1)
 
     echo "Autentificare reusita! Esti acum in directorul tau personal: /home/$user_id"
     cd "/home/$user_id"
@@ -45,15 +44,37 @@ while true; do
     echo "Utilizatorul $user este acum autentificat si logat."
     echo "Scrie 'exit' pentru a iesi din acest director personal."
 
-    # Mini-shell personal
+    # Mini-shell personalizat cu optiunea de generare raport
     while true; do
         echo -n "(HOME-$user_id) $ "
         read -r comanda
-        if [ "$comanda" == "exit" ]; then
-            echo "Iesire din directorul personal..."
-            break
-        fi
-        eval "$comanda"
+
+        case $comanda in
+          echo " Pentru a se genera raportul tastati "raport", iar pentru a iesi "exit". "
+            "raport")
+                # Generare raport pentru utilizatorul curent
+                echo "Se genereaza raportul pentru utilizatorul $user..."
+                num_files=$(find "/home/$user_id" -type f | wc -l)
+                num_dirs=$(find "/home/$user_id" -type d | wc -l)
+                total_size=$(du -sh "/home/$user_id" | sed 's/^\([^[:space:]]*\).*/\1/')
+                # total_size=$(du -sh "/home/$user_id" | cut -f1) putem face si asa
+                
+                # Creăm raportul
+                report_file="/home/$user_id/raport_utilizator.txt"
+                echo "Raport pentru utilizatorul $user" > "$report_file"
+                echo "Numar de fisiere: $num_files" >> "$report_file"
+                echo "Numar de directoare: $num_dirs" >> "$report_file"
+                echo "Dimensiune totala pe disc: $total_size" >> "$report_file"
+                
+                echo "Raportul a fost generat si salvat in: $report_file"
+                ;;
+            "exit")
+                echo "Iesire din directorul personal..."
+                break
+                ;;
+          
+                
+        esac
     done
 
     break
