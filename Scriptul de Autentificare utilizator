@@ -6,7 +6,7 @@ while true; do
     read user
 
     # Cautam utilizatorul in fisierul utilizatori.csv
-    line=$(grep "^$user," utilizatori.csv)
+    line=$(grep ",$user," utilizatori.csv)
 
     # Daca utilizatorul nu este gasit, afisam mesaj si cerem din nou numele
     if [ -z "$line" ]; then
@@ -28,6 +28,8 @@ while true; do
     # Verificam daca hash-ul parolei este corect
     if [ "$input_password_hash" != "$stored_password" ]; then
         echo "Eroare: Parola introdusa nu este corecta. Asigurati-va ca respectati exact parola introdusa la inregistrare."
+        echo "$stored_password"
+        echo "$input_password_hash"
         continue
     fi
 
