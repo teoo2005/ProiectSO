@@ -1,54 +1,55 @@
 #!/bin/bash
 
 while true; do
-    # Solicităm numele de utilizator
-    echo "Introduceți numele de utilizator pentru autentificare:"
+    # Solicitam numele de utilizator
+    echo "Introduceti numele de utilizator pentru autentificare:"
     read user
 
-    # Căutăm utilizatorul în fișierul utilizatori.csv
+    # Cautam utilizatorul in fisierul utilizatori.csv
     line=$(grep "^$user," utilizatori.csv)
 
-    # Dacă utilizatorul nu este găsit, afișăm mesaj detaliat și cerem din nou numele
+    # Daca utilizatorul nu este gasit, afisam mesaj si cerem din nou numele
     if [ -z "$line" ]; then
-        echo "Eroare: Utilizatorul $user nu există înregistrat. Vă rugăm să vă înregistrați mai întâi."
-        echo "Vă rugam mergeti in meniul principal la "inregistrare" " 
-          exit 1 
-    fi
-
-    # Extragem parola criptată
-    stored_password=$(echo $line | sed 's/^[^,]*,[^,]*,[^,]*,\([^,]*\),.*$/\1/')
-
-    # Solicităm parola
-    echo "Introduceți parola:"
-    read -s input_password
-
-    # Criptăm parola introdusă
-    input_password_hash=$(echo -n "$input_password" | sha256sum | sed 's/^\([a-f0-9]\{64\}\)\s.*$/\1/')
-
-    # Verificăm dacă hash-ul parolei este corect
-    if [ "$input_password_hash" != "$stored_password" ]; then
-        echo "Eroare: Parola introdusă nu este corectă. Parola trebuie să fie exact aceeași ca și cea înregistrată în sistem."
-        echo "Asigurați-vă că respectați și majusculele/minusculele."
+        echo "Eroare: Utilizatorul $user nu exista inregistrat. Va rugam sa va inregistrati mai intai."
+        echo "Mergeti in meniul principal la inregistrare."
         continue
     fi
 
-    # Dacă parola este corectă, actualizăm câmpul last_login
+    # Extragem parola criptata
+    stored_password=$(echo $line | sed 's/^[^,]*,[^,]*,[^,]*,\([^,]*\),.*$/\1/')
+
+    # Solicitam parola
+    echo "Introduceti parola:"
+    read -s input_password
+
+    # Criptam parola introdusa
+    input_password_hash=$(echo -n "$input_password" | sha256sum | sed 's/^\([a-f0-9]\{64\}\)\s.*$/\1/')
+
+    # Verificam daca hash-ul parolei este corect
+    if [ "$input_password_hash" != "$stored_password" ]; then
+        echo "Eroare: Parola introdusa nu este corecta. Asigurati-va ca respectati exact parola introdusa la inregistrare."
+        continue
+    fi
+
+    # Daca parola este corecta, actualizam campul last_login
     date_now=$(date '+%Y-%m-%d %H:%M:%S')
     sed -i "s/^$user,[^,]*,[^,]*,[^,]*$/&,$date_now/" utilizatori.csv
 
     # Extragem user_id
     user_id=$(echo $line | sed 's/^\([^,]*\),.*$/\1/')
 
-    # Creăm directorul home pentru utilizator
-    mkdir -p "/home/$user_id"
-    echo "Autentificare reușită! Vă veți îndrepta acum către directorul home al utilizatorului $user."
-    echo "Acesta este directorul personal unde puteți salva fișierele sau face modificări."
+    # Verificam daca directorul home exista, altfel dam mesaj
+    # if [ ! -d "/home/$user_id" ]; then
+    #    echo "Atentie: Directorul home pentru utilizatorul $user nu exista. Creati contul din nou!"
+    #   continue
+    # fi
+
+    echo "Autentificare reusita! Te vei muta in directorul personal."
     cd "/home/$user_id"
 
-# Adăugăm utilizatorul la lista de utilizatori autentificați
-    logged_in_users+=("$user")
-    echo "Utilizatorul $user este acum autentificat."
+    # Adaugam utilizatorul la lista de utilizatori logati
+    utilizatori_logati+=("$user")
+    echo "Utilizatorul $user este acum autentificat si logat."
 
-    # Iesim din bucla while dacă autentificarea a avut succes
     break
 done
