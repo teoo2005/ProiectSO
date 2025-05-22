@@ -7,7 +7,7 @@ while true; do
     echo "Tasta 3 ->> Iesire din contr"
     echo "Tasta 4 ->> Schimbare parola"
     echo "Tasta 5 ->> Iesire din program "
-    echot" Tasta 6 ->> Joc "
+    echo " Tasta 6 ->> Joc "
     echo "Alegeți o opțiune:"
     read option
 
