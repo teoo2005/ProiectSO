@@ -1,7 +1,7 @@
 #!/bin/bash
 
 while true; do
-    # Solicitam numele de utilizator
+    # Solicitam numele de utilizator pentru autentificare
     echo "Introduceti numele de utilizator pentru autentificare:"
     read user
 
@@ -40,11 +40,13 @@ while true; do
 
     echo "Autentificare reusita! Esti acum in directorul tau personal: /home/$user_id"
     cd "/home/$user_id"
-    utilizatori_logati+=("$user")
+    
+    # Adaugam utilizatorul la lista de utilizatori logati
+    utlog+=("$user")
     echo "Utilizatorul $user este acum autentificat si logat."
     echo "Scrie 'exit' pentru a iesi din acest director personal."
-    echo "Scrie 'raport' pentru a iesi din acest director personal."
-    echo " Daca folosesti orice alta comanda, trebuie folosit sudo . "
+    echo "Scrie 'raport' pentru a genera raportul."
+    echo "Daca folosesti orice alta comanda, trebuie folosit sudo."
 
     # Mini-shell personalizat cu acceptarea oricaror comenzi
     while true; do
@@ -68,17 +70,18 @@ while true; do
                 
                 echo "Raportul a fost generat si salvat in: $report_file"
                 ;;
+
             "exit")
                 echo "Iesire din directorul personal..."
                 break
                 ;;
+
             *)
                 # Executa orice alta comanda data in mini-shell
-                eval "$comanda" 
+                eval "$comanda"
                 ;;
         esac
     done
 
     break
 done
-
