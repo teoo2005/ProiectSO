@@ -15,6 +15,8 @@ elif [[ ( "$alegere" == "piatra" && "$joc" == "foarfeca" ) || \
         ( "$alegere" == "foarfeca" && "$joc" == "hartie" ) || \
         ( "$alegere" == "hartie" && "$joc" == "piatra" ) ]]; then
     echo "Ai castigat!"
-else
+elif [[ ( "$alegere" == "piatra" && "$joc" == "hartie" ) || \
+        ( "$alegere" == "foarfeca" && "$joc" == "piatra") || \
+        ( "$alegere" == "hartie" && "$joc" == "foarfeca") ]]; then
     echo "Calculatorul a castigat!"
 fi
