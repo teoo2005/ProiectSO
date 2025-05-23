@@ -1,12 +1,12 @@
 #!/bin/bash
 
-echo "Introduceți numele de utilizator pentru logout:"
+echo "Introduceti numele de utilizator pentru logout:"
 read username
 
-# Verificăm dacă utilizatorul este autentificat
-if [[ " ${logged_in_users[@]} " =~ " $username " ]]; then
-    # Eliminăm utilizatorul din lista de autentificați
-    logged_in_users=("${logged_in_users[@]/$username}")
+# Verificam daca utilizatorul este autentificat in lista utlog
+if [[ " ${utlog[@]} " =~ " $username " ]]; then
+    # Eliminam utilizatorul din lista de autentificati
+    utlog=("${utlog[@]/$username}")
     echo "Utilizatorul $username a fost deconectat."
 else
     echo "Utilizatorul $username nu este autentificat."
