@@ -16,13 +16,13 @@ while true; do
             source inregistrare_utilizator.sh  # Apelăm scriptul de înregistrare
             ;;
         2)
-             source autentificare_utilizator.sh  # Apelăm scriptul de autentificare
+            source autentificare_utilizator.sh  # Apelăm scriptul de autentificare
             ;;
         3)
-            ./logout_utilizator.sh  # Apelăm scriptul de logout
+            source logout.sh  # Apelăm scriptul de logout
             ;;
         4)
-            ./modificare_parola.sh  # Apelăm scriptul de modificare a parolei
+            source modificare_parola.sh  # Apelăm scriptul de modificare a parolei
             ;;
         5)
             echo "Ieșire din program."
