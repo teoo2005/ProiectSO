@@ -3,72 +3,72 @@
 while true; do
     # Solicitam numele de utilizator pentru autentificare
     echo "Introduceti numele de utilizator pentru autentificare:"
-    read user
+    read nume
 
     # Cautam utilizatorul in fisierul utilizatori.csv
-    line=$(grep ",$user," utilizatori.csv)
+    contor=$(grep ",$nume," utilizatori.csv)
 
     # Daca utilizatorul nu este gasit, afisam mesaj si cerem din nou numele
-    if [ -z "$line" ]; then
-        echo "Eroare: Utilizatorul $user nu exista inregistrat. Va rugam sa va inregistrati mai intai."
+    if [ -z "$contor" ]; then
+        echo "Eroare: Utilizatorul $nume nu exista inregistrat. Va rugam sa va inregistrati mai intai."
         echo "Mergeti in meniul principal la inregistrare."
         continue
     fi
 
     # Extragem parola criptata
-    stored_password=$(echo "$line" | sed 's/^[^,]*,[^,]*,[^,]*,\([^,]*\).*$/\1/')
+    parolaStocata=$(echo "$contor" | sed 's/^[^,]*,[^,]*,[^,]*,\([^,]*\).*$/\1/')
 
     # Solicitam parola
     echo "Introduceti parola:"
-    read -s input_password
+    read -s parolaTastata
 
     # Criptam parola introdusa
-    input_password_hash=$(echo -n "$input_password" | sha256sum | sed 's/^\([a-f0-9]\{64\}\)\s.*$/\1/')
+    parolaTastataHash=$(echo -n "$parolaTastata" | sha256sum | sed 's/^\([a-f0-9]\{64\}\)\s.*$/\1/')
 
     # Verificam daca hash-ul parolei este corect
-    if [ "$input_password_hash" != "$stored_password" ]; then
+    if [ "$parolaTastataHash" != "$parolaStocata" ]; then
         echo "Eroare: Parola introdusa nu este corecta. Asigurati-va ca respectati exact parola introdusa la inregistrare."
         continue
     fi
 
     # Daca parola este corecta, actualizam campul last_login
-    date_now=$(date '+%Y-%m-%d %H:%M:%S')
-    sed -i "s/^$user,[^,]*,[^,]*,[^,]*$/&,$date_now/" utilizatori.csv
+    timp=$(date '+%Y-%m-%d %H:%M:%S')
+    sed -i "s/^$nume,[^,]*,[^,]*,[^,]*$/&,$timp/" utilizatori.csv
 
-    # Extragem user_id
-    user_id=$(echo "$line" | cut -d',' -f1)
+    # Extragem id-ul utilizatorului
+    id=$(echo "$contor" | cut -d',' -f1)
 
-    echo "Autentificare reusita! Esti acum in directorul tau personal: /home/$user_id"
-    cd "/home/$user_id"
+    echo "Autentificare reusita! Esti acum in directorul tau personal: /home/$id"
+    cd "/home/$id"
     
     # Adaugam utilizatorul la lista de utilizatori logati
-    utlog+=("$user")
-    echo "Utilizatorul $user este acum autentificat si logat."
+    utlog+=("$nume")
+    echo "Utilizatorul $nume este acum autentificat si logat."
     echo "Scrie 'exit' pentru a iesi din acest director personal."
     echo "Scrie 'raport' pentru a genera raportul."
     echo "Daca folosesti orice alta comanda, trebuie folosit sudo."
 
     # Mini-shell personalizat cu acceptarea oricaror comenzi
     while true; do
-        echo -n "(HOME-$user_id) $ "
+        echo -n "(HOME-$id) $ "
         read -r comanda
 
         case $comanda in
             "raport")
                 # Generare raport pentru utilizatorul curent
-                echo "Se genereaza raportul pentru utilizatorul $user..."
-                num_files=$(find "/home/$user_id" -type f | wc -l)
-                num_dirs=$(find "/home/$user_id" -type d | wc -l)
-                total_size=$(du -sh "/home/$user_id" | sed 's/^\([^[:space:]]*\).*/\1/')
+                echo "Se genereaza raportul pentru utilizatorul $nume..."
+                nrFis=$(find "/home/$id" -type f | wc -l)
+                nrDir=$(find "/home/$id" -type d | wc -l)
+                dimensiune=$(du -sh "/home/$id" | sed 's/^\([^[:space:]]*\).*/\1/')
 
                 # Creăm raportul
-                report_file="/home/$user_id/raport_utilizator.txt"
-                echo "Raport pentru utilizatorul $user" > "$report_file"
-                echo "Numar de fisiere: $num_files" >> "$report_file"
-                echo "Numar de directoare: $num_dirs" >> "$report_file"
-                echo "Dimensiune totala pe disc: $total_size" >> "$report_file"
+                raport="/home/$id/raport.txt"
+                echo "Raport pentru utilizatorul $nume" > "$raport"
+                echo "Numar de fisiere: $nrFis" >> "$raport"
+                echo "Numar de directoare: $nrDir" >> "$raport"
+                echo "Dimensiune totala pe disc: $dimensiune" >> "$raport"
                 
-                echo "Raportul a fost generat si salvat in: $report_file"
+                echo "Raportul a fost generat si salvat in: $raport"
                 ;;
 
             "exit")
