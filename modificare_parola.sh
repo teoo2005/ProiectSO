@@ -4,9 +4,9 @@ echo "Introduceti numele de utilizator pentru schimbarea parolei:"
 read username
 
 # Verificam daca utilizatorul exista
-user_line=$(grep "^$username," utilizatori.csv)
+linie=$(grep "^$username," utilizatori.csv)
 
-if [ -z "$user_line" ]; then
+if [ -z "$linie" ]; then
     echo "Utilizatorul $username nu exista."
     exit 1
 fi
