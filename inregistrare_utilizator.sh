@@ -1,6 +1,7 @@
 #!/bin/bash
 
 while true; do
+    # Solicitam numele de utilizator pentru inregistrare
     echo "Introduceti numele de utilizator pentru inregistrare:"
     read nume
 
@@ -53,31 +54,31 @@ while true; do
     done
 
     # Criptam parola folosind sha256sum
-    parolahash=$(echo -n "$parola" | sha256sum | awk '{print $1}')
+    parolaHash=$(echo -n "$parola" | sha256sum | sed 's/\s.*//')
 
     # Descompunem calculul ID-ului utilizatorului
-    line_count=$(wc -l < utilizatori.csv)   # numarul de linii din fisier
-    user_id=$((line_count + 1))             # adaugam 1 pentru a obtine ID-ul
+    numarLinii=$(wc -l < utilizatori.csv)   # numarul de linii din fisier
+    idUtilizator=$((numarLinii + 1))         # adaugam 1 pentru a obtine ID-ul
 
     # Cream directorul home pentru utilizator, folosind ID-ul
-    mkdir -p "/home/$user_id"
-    echo "Directorul home pentru utilizatorul $nume a fost creat la /home/$user_id."
+    mkdir -p "/home/$idUtilizator"
+    echo "Directorul home pentru utilizatorul $nume a fost creat la /home/$idUtilizator."
 
     # Adaugam utilizatorul in fisierul utilizatori.csv
-    echo "$user_id,$nume,$email,$parolahash" >> utilizatori.csv
+    echo "$idUtilizator,$nume,$email,$parolaHash" >> utilizatori.csv
     echo "Utilizatorul $nume a fost adaugat in fisierul utilizatori.csv."
 
     # Confirmam inregistrarea
     echo "Inregistrarea a fost realizata cu succes!"
-    echo "ID Utilizator: $user_id"
+    echo "ID Utilizator: $idUtilizator"
     echo "Nume Utilizator: $nume"
     echo "Email: $email"
-    echo "Parola criptata: $parolahash"
+    echo "Parola criptata: $parolaHash"
 
     # Trimiterea unui email de confirmare
-    echo -e "Subject: Salut $nume, contul este gata!" | msmtp $email
+    echo -e "Subject: Salut $nume, contul este gata!\n\nBuna $nume\n\nContul tau a fost creeat cu succes " | msmtp $email
 
-    echo "Email de confirmare a fost trimis la adresa $email."
+    echo "Email-ul a fost trimis la adresa scrisa ." | cowsay
 
     # Iesim din bucla while daca totul a fost corect
     break
