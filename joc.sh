@@ -10,13 +10,16 @@ joc=${PFH[$RANDOM % 3]}
 echo "Calculatorul a ales: $joc"
 
 if [ "$alegere" == "$joc" ]; then
-    echo "Egalitate!"
+    echo "EGALTATE!"
+    echo ""
 elif [[ ( "$alegere" == "piatra" && "$joc" == "foarfeca" ) || \
         ( "$alegere" == "foarfeca" && "$joc" == "hartie" ) || \
         ( "$alegere" == "hartie" && "$joc" == "piatra" ) ]]; then
-    echo "Ai castigat!"
+    echo "BRAVO MA ! Ai castigat!"
+    echo ""
 elif [[ ( "$alegere" == "piatra" && "$joc" == "hartie" ) || \
         ( "$alegere" == "foarfeca" && "$joc" == "piatra") || \
         ( "$alegere" == "hartie" && "$joc" == "foarfeca") ]]; then
     echo "Calculatorul a castigat!"
+    echo ""
 fi
