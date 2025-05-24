@@ -1,6 +1,6 @@
 #!/bin/bash
 
-symbols=("CHERRY" "LEMON" "7" "BAR" "STAR")
+simboluri=("PRUNE" "LAMAI" "7" "BAR" "STAR")
 
 echo "Apasa ENTER pentru a roti sloturile, scrie orice altceva apoi ENTER pentru a iesi."
 
@@ -12,9 +12,9 @@ while true; do
     break
   fi
 
-  slot1=${symbols[$RANDOM % ${#symbols[@]}]}
-  slot2=${symbols[$RANDOM % ${#symbols[@]}]}
-  slot3=${symbols[$RANDOM % ${#symbols[@]}]}
+  slot1=${simboluri[$RANDOM % ${#simboluri[@]}]}
+  slot2=${simboluri[$RANDOM % ${#simboluri[@]}]}
+  slot3=${simboluri[$RANDOM % ${#simboluri[@]}]}
 
   echo "Rezultat: | $slot1 | $slot2 | $slot3 |"
 
