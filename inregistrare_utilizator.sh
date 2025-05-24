@@ -65,10 +65,12 @@ while true; do
     idUtilizator=$((numarLinii + 1))         # adaugam 1 la nr de linii ca sa fie utilizatorul curent si ca sa nu inceapa utilizatorii d la 0 
 
     # aici se creaza directorul home al utiliz. folosind de id 
+    
     mkdir -p "/home/$idUtilizator" # -p face sa se creeze automat chiar daca nu ar exista directorul home , facand sa fie comanda mai puternica
     echo "Directorul home pentru utilizatorul $nume a fost creat la /home/$idUtilizator."
 
-    # se salveaza utilizatorul si toate datele lui in utilizatori.csv
+    # se salveaza utilizatorul si toate datele lui in utilizatori.cvs
+
     echo "$idUtilizator,$nume,$email,$parolaHash" >> utilizatori.csv
     echo "Utilizatorul $nume a fost adaugat in fisierul utilizatori.csv."
 
