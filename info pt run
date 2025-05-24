@@ -5,18 +5,19 @@ Salvează fiecare dintre scripturi într-un fișier separat pe care le vei apela
 
 Fă fișierul manager executabil:
 
-Folosește comanda chmod +x manager.sh pentru a-l face executabil.
+Folosește comanda chmod +x main.sh pentru a-l face executabil.
 
 Rulează scriptul:
 
-Rulează scriptul principal manager.sh cu comanda ./manager.sh.
+Rulează scriptul principal main.sh cu comanda source main.sh . 
 
 Interacționează cu meniul:
 
 Alege opțiunile din meniu pentru a înregistra, autentifica, modifica parola sau pentru logout.
 
 Concluzie:
-Acest setup oferă un sistem modular în care fiecare funcționalitate (înregistrare, autentificare, logout etc.) este tratată de un script separat. Scriptul principal (managerul) coordonează întregul proces, iar utilizatorii pot interacționa cu meniul pentru a alege acțiuni.
+Acest setup oferă un sistem modular în care fiecare funcționalitate (înregistrare, autentificare, logout etc.) este tratată de un script separat.
+Scriptul principal (managerul) coordonează întregul proces, iar utilizatorii pot interacționa cu meniul pentru a alege acțiuni.
 
 Dacă ai întrebări suplimentare sau vrei să adaugi funcționalități noi, îți stau la dispoziție!
 
