@@ -37,8 +37,9 @@ while true; do
     fi
 
     # Daca parola este corecta, actualizam campul de last login 
+  
     timp=$(date '+%Y-%m-%d %H:%M:%S')
-    sed -i "s/^$nume,[^,]*,[^,]*,[^,]*$/&,$timp/" utilizatori.csv
+    sed -i "s/^\([^,]*,$nume,[^,]*,[^,]*\).*/\1,$timp/" utilizatori.csv
 
     # extragere id-ul utilizatorului
     id=$(echo "$contor" | cut -d',' -f1)
