@@ -5,9 +5,8 @@ simboluri=("PRUNE" "LAMAI" "7" "BAR" "STAR")
 echo "Apasa ENTER pentru a roti sloturile, scrie orice altceva apoi ENTER pentru a iesi."
 
 while true; do
-  read -r input
-
-  if [[ -n "$input" ]]; then
+  read -r tasta
+  if [[ -n "$tasta" ]]; then
     echo "Joc terminat. Mult noroc data viitoare!"
     break
   fi
