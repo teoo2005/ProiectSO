@@ -1,5 +1,7 @@
 #!/bin/bash
 declare -a utlog=() # ca sa fie vizibil in autentificare si delogare 
+
+
 while true; do
     echo -e "\nMeniu:"
     echo "Tasta 1 ->> Inregistrare"
