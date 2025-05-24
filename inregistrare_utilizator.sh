@@ -80,7 +80,7 @@ while true; do
     echo "Parola criptata: $parolaHash"
 
     # Trimiterea unui email de confirmare
-    echo -e "Subject: Salut $nume, contul este gata!\n\nBuna $nume\n\nContul tau a fost creeat cu succes " | msmtp $email
+    echo -e "Subject: Salut $nume, contul este gata!\n\nSalutare, $nume!\n\nContul tau a fost creeat cu succes.:) " | msmtp $email
     # -e in echo ii spune sa interpreze corect \n pt linie noua sau \n\n ca sa faca o linie in plus de spatiu pt lizibilitate
 
     echo "Email-ul a fost trimis la adresa scrisa ." | cowsay
