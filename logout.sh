@@ -1,13 +1,15 @@
 #!/bin/bash
+# aici nu stiu cat de eficient este , fiindca cand se sterge utiliz.
+# ar putea ramane spatiu gol in vector;
 
 echo "Introduceti numele de utilizator pentru logout:"
-read username
+read nume
 
 # Verificam daca utilizatorul este autentificat in lista utlog
-if [[ " ${utlog[@]} " =~ " $username " ]]; then
+if [[ " ${utlog[@]} " =~ " $nume " ]]; then
     # Eliminam utilizatorul din lista de autentificati
-    utlog=("${utlog[@]/$username}")
-    echo "Utilizatorul $username a fost deconectat."
+    utlog=("${utlog[@]/$nume}")
+    echo "Utilizatorul $nume a fost deconectat."
 else
-    echo "Utilizatorul $username nu este autentificat."
+    echo "Utilizatorul $nume nu este autentificat."
 fi
