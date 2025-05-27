@@ -1,5 +1,5 @@
-verificare parola de doua ori . Am fct la inregistrare asta 27.05
-verificare si creare utilizatori .csv in main 27.05
+verificare parola de doua ori . Am fct la inregistrare asta 27.05 :heavy_check_mark:
+verificare si creare utilizatori .csv in main 27.05 
 optiune: la logout , daca apesi exit sa te delogheze automat din vector , nu sa avem buton(si script) special 
 in loc de mini shell cream un fel de spatiu de lucru in main.sh, unde utilizatorul intra si lucreaza la el in director
 la inregistrare nu este bine sa dam cd /home/user pentru ca tot programul se va executa acolo dupa , trebuie dat doar la autentificare 
