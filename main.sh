@@ -10,7 +10,7 @@ while true; do
     echo "Tasta 4 ->> Schimbare parola"
     echo "Tasta 5 ->> Iesire din program "
     echo "Tasta 6 ->> Joc "
-    echo "Tasta 7 ->> Pacanea Jimmy "
+    echo "Tasta 7 ->> Generare raport utilz "
     echo " TAsta 8 ->> Verificare utlog"
     echo "Alegeți o opțiune:"
     read option
@@ -36,7 +36,7 @@ while true; do
             source joc.sh
             ;;
         7) 
-            source pacanea.sh
+            source raport.sh
             ;;
             8)
             echo "Utilizatori logati: "
