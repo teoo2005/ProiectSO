@@ -48,9 +48,25 @@ while true; do
     utlog+=("$nume")
     echo "Utilizatorul $nume este acum autentificat si logat."
     
-      #  echo "Autentificare reusita! Esti acum in directorul tau personal: /home/$id"
-      # cd "/home/$id" || exit 1 # daca nu merge, te scoate in main , inseamna ca o dat eroare
-      # $SHELL # inlocuieste procesul curent shell cu un nou shell în directorul utilizatorului
+        echo "Autentificare reusita! Esti acum in directorul tau personal: /home/$id"
+       cd "/home/$id" || exit 1 # daca nu merge, te scoate in main , inseamna ca o dat eroare
+       $SHELL # inlocuieste procesul curent shell cu un nou shell în directorul utilizatorului
+
+       # Loop-ul pentru activitatea utilizatorului in directorul sau personal
+    while true; do
+        echo -n "Daca vrei sa iesi din directorul personal, scrie 'exit'. Pentru a continua, apasa orice tasta si apasa ENTER: "
+        read opt
+
+        if [ "$opt" == "exit" ]; then
+            echo "Iesire din directorul personal..."
+            break  # iei utilizatorul inapoi in meniul principal
+        else
+            echo "Continua sa lucrezi in directorul tau personal..."
+        fi
+    done
+    
+    break  # Iesi din bucla principala si revii in main.sh
+done
    
     break  
 done
