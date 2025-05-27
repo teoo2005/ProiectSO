@@ -53,7 +53,7 @@ while true; do
     
         echo "Autentificare reusita! Esti acum in directorul tau personal: /home/$id"
     cd "/home/$id" || exit 1 # daca nu merge, te scoate in main , inseamna ca o dat eroare
-    exec $SHELL # inlocuieste procesul curent shell cu un nou shell în directorul utilizatorului
+     $SHELL # inlocuieste procesul curent shell cu un nou shell în directorul utilizatorului
    
     break
 done
