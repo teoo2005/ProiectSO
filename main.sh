@@ -11,6 +11,7 @@ while true; do
     echo "Tasta 5 ->> Iesire din program "
     echo "Tasta 6 ->> Joc "
     echo "Tasta 7 ->> Pacanea Jimmy "
+    echo " TAsta 8 ->> Verificare utlog"
     echo "Alegeți o opțiune:"
     read option
 
@@ -37,6 +38,9 @@ while true; do
         7) 
             source pacanea.sh
             ;;
+            8)
+            echo "Utilizatori logati: "
+            echo "${utlog[@]}"
         *)
             echo "Opțiune invalidă. Vă rugăm să selectați din nou."
             ;;
