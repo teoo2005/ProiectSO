@@ -44,14 +44,16 @@ while true; do
     # extragere id-ul utilizatorului
     id=$(echo "$contor" | cut -d',' -f1)
 
-    echo "Autentificare reusita! Esti acum in directorul tau personal: /home/$id"
-    cd "/home/$id" || exit 1 # daca nu merge, te scoate in main , inseamna ca o dat eroare
-    exec $SHELL # inlocuieste procesul curent shell cu un nou shell în directorul utilizatorului
+
     
     
     # Adaugam utilizatorul la lista de utilizatori logati utlog.txt 
     utlog+=("$nume")
     echo "Utilizatorul $nume este acum autentificat si logat."
-  
+    
+        echo "Autentificare reusita! Esti acum in directorul tau personal: /home/$id"
+    cd "/home/$id" || exit 1 # daca nu merge, te scoate in main , inseamna ca o dat eroare
+    exec $SHELL # inlocuieste procesul curent shell cu un nou shell în directorul utilizatorului
+   
     break
 done
