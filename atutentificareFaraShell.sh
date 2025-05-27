@@ -52,5 +52,5 @@ while true; do
       # cd "/home/$id" || exit 1 # daca nu merge, te scoate in main , inseamna ca o dat eroare
       # $SHELL # inlocuieste procesul curent shell cu un nou shell în directorul utilizatorului
    
-    exit 0 
+    break  
 done
