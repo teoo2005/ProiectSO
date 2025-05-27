@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 while true; do
@@ -44,8 +45,8 @@ while true; do
     # extragere id-ul utilizatorului
     id=$(echo "$contor" | cut -d',' -f1)
 
-    echo "Autentificare reusita! Esti acum in directorul tau personal: /home/$id"
-    cd "/home/$id"
+    echo "Autentificare reusita! Esti acum in directorul tau personal: /users/$nume"
+    cd ./users/$nume
     
     # Adaugam utilizatorul la lista de utilizatori logati utlog.txt 
     utlog+=("$nume")
@@ -54,40 +55,39 @@ while true; do
     echo "Scrie 'raport' pentru a genera raportul."
     echo "Daca folosesti orice alta comanda, trebuie folosit sudo."
 
-    # Mini-shell personalizat cu acceptarea oricaror comenzi
-    while true; do
-        echo -n "(homeMini-$id) $ "
-        read -r comanda
+# Mini-shell personalizat cu acceptarea oricaror comenzi
+ #   while true; do
+  #      echo -n "(homeMini-$id) $ "
+   #     read -r comanda
 
-        case $comanda in
-            "raport")
-                # Generare raport pentru utilizatorul curent
-                echo "Se genereaza raportul pentru utilizatorul $nume..."
-                nrFis=$(find "/home/$id" -type f | wc -l)
-                nrDir=$(find "/home/$id" -type d | wc -l)
-                dimensiune=$(du -sh "/home/$id" | sed 's/^\([^[:space:]]*\).*/\1/')
+    #    case $comanda in
+     #       "raport")
+             # Generare raport pentru utilizatorul curent
+      #          echo "Se genereaza raportul pentru utilizatorul $nume..."
+       #         nrFis=$(find "/home/$id" -type f | wc -l)
+        #        nrDir=$(find "/home/$id" -type d | wc -l)
+         #       dimensiune=$(du -sh "/home/$id" | sed 's/^\([^[:space:]]*\).*/\1/')
 
-                # Creare raport 
-                raport="/home/$id/raport.txt"
-                echo "Raport pentru utilizatorul $nume" > "$raport"
-                echo "Numar de fisiere: $nrFis" >> "$raport"
-                echo "Numar de directoare: $nrDir" >> "$raport"
-                echo "Dimensiune totala pe disc: $dimensiune" >> "$raport"
+          #   Creare raport 
+           #     raport="/home/$id/raport.txt"
+            #    echo "Raport pentru utilizatorul $nume" > "$raport"
+             #   echo "Numar de fisiere: $nrFis" >> "$raport"
+              #  #echo "Numar de directoare: $nrDir" >> "$raport"
+               # echo "Dimensiune totala pe disc: $dimensiune" >> "$raport"
                 
-                echo "Raportul a fost generat si salvat in: $raport"
-                ;;
+               # echo "Raportul a fost generat si salvat in: $raport"
+               # ;;
 
-            "exit")
-                echo "Iesire din directorul personal..."
-                break
-                ;;
+            #"exit")
+             #  echo "Iesire din directorul personal..."
+              #  break
+               # ;;
 
-            *)
-                # Executa orice alta comanda data in mini-shell
-                eval "$comanda"
-                ;;
-        esac
-    done
-
+         #*)
+          #   Executa orice alta comanda data in mini-shell
+           #    eval "$comanda"
+            #    ;;
+       # esac
+    #done
     break
 done
