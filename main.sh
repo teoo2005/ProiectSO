@@ -19,7 +19,7 @@ while true; do
             source inregistrare_utilizator.sh  # Apelăm scriptul de înregistrare
             ;;
         2)
-            ./autentificare_utilizator.sh  # Apelăm scriptul de autentificare
+            source ./autentificare_utilizator.sh  # Apelăm scriptul de autentificare
             ;;
         3)
             source logout.sh  # Apelăm scriptul de logout
