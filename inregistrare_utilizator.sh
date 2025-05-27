@@ -65,9 +65,10 @@ while true; do
     idUtilizator=$((numarLinii + 1))         # adaugam 1 la nr de linii ca sa fie utilizatorul curent si ca sa nu inceapa utilizatorii d la 0 
 
     # aici se creaza directorul home al utiliz. folosind de id 
+    # trebuie creat inainte directorul users
     
-    mkdir -p "/home/$idUtilizator" # -p face sa se creeze automat chiar daca nu ar exista directorul home , facand sa fie comanda mai puternica
-    echo "Directorul home pentru utilizatorul $nume a fost creat la /home/$idUtilizator."
+    mkdir -p ./users/$nume # -p face sa se creeze automat chiar daca nu ar exista directorul home , facand sa fie comanda mai puternica
+    echo "Directorul home pentru utilizatorul $nume a fost creat la /users/$nume."
 
     # se salveaza utilizatorul si toate datele lui in utilizatori.cvs
 
@@ -86,6 +87,8 @@ while true; do
     # -e in echo ii spune sa interpreze corect \n pt linie noua sau \n\n ca sa faca o linie in plus de spatiu pt lizibilitate
 
     echo "Email-ul a fost trimis la adresa scrisa ." | cowsay
+
+    # cd ./users/$nume
 
     # daca totul e corect, break inchide programul si ne aduce in main.sh
     break
