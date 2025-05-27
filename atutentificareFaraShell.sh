@@ -55,9 +55,9 @@ while true; do
        # Loop-ul pentru activitatea utilizatorului in directorul sau personal
     while true; do
         echo -n "Daca vrei sa iesi din directorul personal, scrie 'exit'. Pentru a continua, apasa orice tasta si apasa ENTER: "
-        read opt
+        read comanda
 
-        if [ "$opt" == "exit" ]; then
+        if [ "$comanda" == "exit" ]; then
             echo "Iesire din directorul personal..."
             break  # iei utilizatorul inapoi in meniul principal
         else
