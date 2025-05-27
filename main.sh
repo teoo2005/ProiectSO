@@ -41,6 +41,7 @@ while true; do
             8)
             echo "Utilizatori logati: "
             echo "${utlog[@]}"
+            ;;
         *)
             echo "Opțiune invalidă. Vă rugăm să selectați din nou."
             ;;
