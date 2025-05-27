@@ -8,7 +8,7 @@ contor=$(grep ",$nume," utilizatori.csv)
 
 if [ -z "$contor" ]; then
     echo "Utilizatorul $nume nu exista."
-    break
+    return
 fi
 
 #daca e ok , se modif parola
