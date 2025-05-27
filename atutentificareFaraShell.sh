@@ -67,6 +67,4 @@ while true; do
     
     break  # Iesi din bucla principala si revii in main.sh
 done
-   
-    break  
-done
+  
