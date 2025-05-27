@@ -22,7 +22,7 @@ id=$(echo "$linie" | sed 's/,.*//')
     nrDir=$(find "/home/$id" -type d | wc -l)
     dimensiune=$(du -sh "/home/$id" | sed 's/\s.*//')
 
-    raport="/home/raport_$nume.txt"
+    raport="/home/$id/raport.txt"
     echo "Raport pentru utilizatorul $nume" > "$raport"
     echo "Numar de fisiere: $nrFis" >> "$raport"
     echo "Numar de directoare: $nrDir" >> "$raport"
