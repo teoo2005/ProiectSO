@@ -1,31 +1,57 @@
 #!/bin/bash
 
-echo "Introduceti numele de utilizator pentru autentificare:"
-read nume
+while true; do
+    echo "Introduceti numele de utilizator pentru autentificare:"
+    read nume
 
-contor=$(grep ",$nume," utilizatori.csv)
+    # salvam intrun contor sa vedem daca se gaseste numele sau nu 
+    contor=$(grep ",$nume," utilizatori.csv)
 
-if [ -z "$contor" ]; then
-  echo "Utilizatorul $nume nu exista inregistrat."
-  return  # daca e rulat cu source, revine in main fara iesire de proces
-fi
+    # daca contorul e gol , adica nu s a gasit numele , te duce in main 
+    if [ -z "$contor" ]; then
+        echo "Eroare: Utilizatorul $nume nu exista inregistrat. Va rugam sa va inregistrati mai intai."
+        echo "Mergeti in meniul principal la inregistrare."
+     break  #break folosim ca sa iasa din script si sa te poti duce inapoi in main 
+    fi
 
-parolaStocata=$(echo "$contor" | sed 's/^[^,]*,[^,]*,[^,]*,\([^,]*\).*$/\1/')
-echo "Introduceti parola:"
-read -s parolaTastata
+    # extragem parola stocata deja , cea cu hash 
+    parolaStocata=$(echo "$contor" | sed 's/^[^,]*,[^,]*,[^,]*,\([^,]*\).*$/\1/')
+   # ^[^,]*, — de la începutul liniei (^), selectează orice caractere care nu sunt virgule ([^,]*) urmate de o virgulă (de 3 ori).
+   #\([^,]*\) — apoi captează (\(...\)) tot ce nu e virgulă, adică al patrulea câmp, care este parola criptată (hash-ul).
+   #.*$ — restul liniei (oricare caractere până la sfârșit).
+   
+    
+    # parola autentificare
+    echo "Introduceti parola:"
+    read -s parolaTastata
 
-parolaTastataHash=$(echo -n "$parolaTastata" | sha256sum | sed 's/\s.*//')
+    # criptare parola 
+    # parolaTastataHash=$(echo -n "$parolaTastata" | sha256sum | sed 's/^\([a-f0-9]\{64\}\)\s.*$/\1/')
+    
+    parolaTastataHash=$(echo -n "$parolaTastata" | sha256sum | sed 's/\s.*//') # varianta mai simpla 
+    
+    # Verificam daca hash-ul parolei este corect
+    if [ "$parolaTastataHash" != "$parolaStocata" ]; then
+        echo "Eroare: Parola introdusa nu este corecta. Trebuie sa fie exact parola inttrodusa la inregistrare ."
+        continue
+    fi
 
-if [ "$parolaTastataHash" != "$parolaStocata" ]; then
-  echo "Parola introdusa nu este corecta."
-  return
-fi
+    # Daca parola este corecta, actualizam campul de last login 
+  
+    timp=$(date '+%Y-%m-%d %H:%M:%S')
+    sed -i "s/^\([^,]*,$nume,[^,]*,[^,]*\).*/\1,$timp/" utilizatori.csv
 
-id=$(echo "$contor" | cut -d',' -f1)
+    # extragere id-ul utilizatorului
+    id=$(echo "$contor" | cut -d',' -f1)
 
-echo "Autentificare reusita! Te afli acum in directorul tau personal: /home/$id"
-cd "/home/$id"
-utlog+=("$nume")
-echo "Utilizatorul $nume este autentificat."
-
-# aici NU mai face alt shell, doar revii in main
+    echo "Autentificare reusita! Esti acum in directorul tau personal: /home/$id"
+    cd "/home/$id" || exit 1 # daca nu merge, te scoate in main , inseamna ca o dat eroare
+    exec $SHELL # inlocuieste procesul curent shell cu un nou shell în directorul utilizatorului
+    
+    
+    # Adaugam utilizatorul la lista de utilizatori logati utlog.txt 
+    utlog+=("$nume")
+    echo "Utilizatorul $nume este acum autentificat si logat."
+  
+    break
+done
