@@ -48,9 +48,9 @@ while true; do
     utlog+=("$nume")
     echo "Utilizatorul $nume este acum autentificat si logat."
     
-        echo "Autentificare reusita! Esti acum in directorul tau personal: /home/$id"
-    cd "/home/$id" || exit 1 # daca nu merge, te scoate in main , inseamna ca o dat eroare
-     $SHELL # inlocuieste procesul curent shell cu un nou shell în directorul utilizatorului
+      #  echo "Autentificare reusita! Esti acum in directorul tau personal: /home/$id"
+      # cd "/home/$id" || exit 1 # daca nu merge, te scoate in main , inseamna ca o dat eroare
+      # $SHELL # inlocuieste procesul curent shell cu un nou shell în directorul utilizatorului
    
     exit 0 
 done
