@@ -83,8 +83,8 @@ while true; do
     echo "Email-ul a fost trimis la adresa $email."
 
     # Daca totul este corect, ramanem in directorul home al utilizatorului
-    cd "/home/$idUtilizator"
-    echo "Esti acum in directorul tau personal. Poti incepe sa lucrezi aici."
+    # cd "/home/$idUtilizator"
+    # echo "Esti acum in directorul tau personal. Poti incepe sa lucrezi aici."
 
     # Iesim din bucla while
     break
