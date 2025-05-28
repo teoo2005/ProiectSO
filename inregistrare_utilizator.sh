@@ -1,39 +1,35 @@
 #!/bin/bash
 
-if [ ! -f "utilizatori.csv" ]; then
-    touch utilizatori.csv
-    
 while true; do
     # solicitam numele pentru inregistrare
     echo "Introduceti numele de utilizator pentru inregistrare:"
     read nume
 
     # Verifica daca utilizatorul exista deja in fisierul utilizatori.csv
-    grep -q "^$nume," utilizatori.csv
-    if [ $? -eq 0 ]; then
+    grep -q "^$nume," utilizatori.csv            # -q doar returneaza 0 daca a gasit  sau 1
+    if [ $? -eq 0 ]; then                        # $?-variabila care stocheaza rezultatul lui grep
         echo "Eroare: Utilizatorul $nume exista deja. Alegeti alt nume de utilizator."
         continue
     fi
 
-    # Adresa de email
+    # while care face adresa de mail adresa de email
     while true; do
-        echo "Introduceti adresa de email:"
+        echo "Introduceti adresa de email: "
         read email
 
-        # Verificam daca email-ul este cu gmail.com la final
-        echo "$email" | grep -E -q "@gmail\.com$"
+        # verificam daca email-ul este cu gmail.com la final
+        echo "$email" | grep -E -q "@gmail\.com$"    # -E e folosit ca sa trateze toate expresiile regulate, iar $ ca sa arate sfarsitul sirului
         if [ $? -ne 0 ]; then
-            echo "Eroare! Adresa de email trebuie sa fie de tipul @gmail.com."
+            echo "Eroare! Adresa de email trebuie sa fie de tipul @gmail.com. "
             continue
         fi
 
-        # Verificam daca email-ul exista deja
+        # verificam daca email-ul exista deja
         grep -q "^$email," utilizatori.csv
         if [ $? -eq 0 ]; then
             echo "Eroare: Adresa de email $email este deja inregistrata. Va rugam sa alegeti un alt email."
             continue
         fi
-
         break
     done
 
@@ -63,15 +59,15 @@ while true; do
     # Criptam parola folosind sha256sum
     parolaHash=$(echo -n "$parola" | sha256sum | sed 's/\s.*//')
 
-    # calcul pt ID-ul utilizatorului
-    numarLinii=$(wc -l < utilizatori.csv)
-    idUtilizator=$((numarLinii + 1))
+    # calcul pt  ID-ul utilizatorului
+    numarLinii=$(wc -l < utilizatori.csv)   # numarul de linii din fisier
+    idUtilizator=$((numarLinii + 1))         # adaugam 1 pentru a obtine ID-ul
 
     # Cream directorul home pentru utilizator, folosind ID-ul
-    mkdir -p "/home/$idUtilizator"
+    mkdir -p "/home/$idUtilizator" # -p face sa se creeze automat chiar daca nu ar exista directorul home , facand sa fie comanda mai puternica
     echo "Directorul home pentru utilizatorul $nume a fost creat la /home/$idUtilizator."
 
-    # Adaugam utilizatorul in fisierul utilizatori.csv
+    # se salveaza utilizatorul si toate datele lui in utilizatori.cvs
     echo "$idUtilizator,$nume,$email,$parolaHash" >> utilizatori.csv
     echo "Utilizatorul $nume a fost adaugat in fisierul utilizatori.csv."
 
@@ -86,7 +82,10 @@ while true; do
     echo -e "Subject: Salut $nume, contul este gata!\n\nSalutare, $nume!\n\nContul tau a fost creeat cu succes.:)" | msmtp $email
     echo "Email-ul a fost trimis la adresa $email."
 
-    # Daca totul este corect, iesim din bucla while
+    # Daca totul este corect, ramanem in directorul home al utilizatorului
+    cd "/home/$idUtilizator"
+    echo "Esti acum in directorul tau personal. Poti incepe sa lucrezi aici."
+
+    # Iesim din bucla while
     break
 done
-
