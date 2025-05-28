@@ -59,6 +59,7 @@ while true; do
 
         if [ "$comanda" == "exit" ]; then
             echo "Iesire din directorul personal..."
+            cd ..
             break  # iei utilizatorul inapoi in meniul principal
         else
             echo "Continua sa lucrezi in directorul tau personal..."
