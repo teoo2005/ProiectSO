@@ -1,5 +1,8 @@
 #!/bin/bash
 
+if [ ! -f utilizatori.csv ]; then
+    touch utilizatori.csv  
+
 while true; do
     # solicitam numele pentru inregistrare
     echo "Introduceti numele de utilizator pentru inregistrare:"
