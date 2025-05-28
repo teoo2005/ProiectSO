@@ -5,7 +5,7 @@ in loc de mini shell cream un fel de spatiu de lucru in main.sh, unde utilizator
 ‼️ la inregistrare nu este bine sa dam cd /home/user pentru ca tot programul se va executa acolo dupa , trebuie dat doar la autentificare 
 
 
-de adaugat verificare la autentificare daca exista dej autilizatorul logat 
+de adaugat verificare la autentificare daca exista dej autilizatorul logat  ☑️
 de modificat jocul 
 de pus daca nu exista, creare utilizatori.csv
 
