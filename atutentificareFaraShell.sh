@@ -43,6 +43,9 @@ while true; do
 
     # extragere id-ul utilizatorului
     id=$(echo "$contor" | cut -d',' -f1)
+    
+#Verificare daca exista utilizator logat deja 
+for
 
     # Adaugam utilizatorul la lista de utilizatori logati utlog.txt 
     utlog+=("$nume")
