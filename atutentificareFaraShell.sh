@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Declaram vectorul utlog pentru a păstra utilizatorii logați
-utlog=()
-
 while true; do
     echo "Introduceti numele de utilizator pentru autentificare:"
     read nume
