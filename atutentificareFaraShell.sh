@@ -61,7 +61,7 @@ while true; do
 
         if [ "$comanda" == "exit" ]; then
             echo "Iesire din directorul personal..."
-            cd ..  # iesi din directorul personal si revii la nivelul anterior
+            cd /mnt/c/Users/teodo #aici am eu , voi va puneti unde aveti voi salvat scriptul
             break  # iei utilizatorul inapoi in meniul principal
         else
             echo "Continua sa lucrezi in directorul tau personal..."
