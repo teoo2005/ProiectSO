@@ -18,7 +18,7 @@ email=$(echo "$contor" | sed 's/^[^,]*,[^,]*,\([^,]*\),.*$/\1/')
 cod_verificare=$((RANDOM % 900 + 100))  # Generează un număr aleatoriu între 100 și 999
 
 # Trimiterea unui email cu codul de verificare folosind msmtp
-echo -e "Subject: Cod Schimbre Parola \n\nCodul este: $cod_verificare.." | msmtp $email
+echo -e "Subject: Cod Schimbre Parola \n\nCodul este: $cod_verificare " | msmtp $email
 
 
 # Solicităm codul de verificare de la utilizator
