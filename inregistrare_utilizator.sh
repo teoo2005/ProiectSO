@@ -22,7 +22,7 @@ while true; do
         read email
 
         # verificam daca email-ul este cu gmail.com la final
-        echo "$email" | grep -E -q "@gmail\.com$"    # -E e folosit ca sa trateze toate expresiile regulate, iar $ ca sa arate sfarsitul sirului
+        echo "$email" | grep -E -q "@gmail\.com$"    # -E e folosit ca sa trateze toate expresiile regulate
         if [ $? -ne 0 ]; then
             echo "EROARE! Adresa de email trebuie sa fie de tipul @gmail.com. "
             continue
