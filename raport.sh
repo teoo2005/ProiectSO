@@ -10,7 +10,7 @@ if [ -z "$linie" ]; then
     exit 0
 fi
 
-# Extragem id-ul utilizatorului folosind sed (primul camp pana la prima virgula)
+# extragem id-ul  folosind sed , primul camp pana la prima virgula
 id=$(echo "$linie" | sed 's/,.*//')
 
 # raportul asincron (in fundal cum e pe gitbook )
