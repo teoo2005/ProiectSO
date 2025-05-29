@@ -11,7 +11,7 @@ while true; do
 
     # verificam daca este utilizator existent cu acest nume
     grep -q ",$nume," utilizatori.csv            # -q doar returneaza 0 daca a gasit  sau 1
-    if [ $? -eq 0 ]; then                        # $?-variabila care stocheaza rezultatul lui grep
+    if [ $? -eq 0 ]; then                        
         echo "EROARE! Utilizatorul $nume exista deja. Alegeti alt nume ."
         continue
     fi
