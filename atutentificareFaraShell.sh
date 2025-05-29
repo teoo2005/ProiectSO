@@ -69,5 +69,5 @@ fi
         fi
     done
 
-    break  # Iesi din bucla principala si revii in main.sh
+    break  
 done
