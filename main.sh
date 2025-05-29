@@ -17,16 +17,16 @@ while true; do
 
     case $option in
         1)
-            source inregistrare_utilizator.sh  # Apelăm scriptul de înregistrare
+            source inregistrare_utilizator.sh  
             ;;
         2)
-            source ./autentificare_utilizator.sh  # Apelăm scriptul de autentificare
+            source ./autentificare_utilizator.sh  
             ;;
         3)
-            source logout.sh  # Apelăm scriptul de logout
+            source logout.sh  
             ;;
         4)
-            source modificare_parola.sh  # Apelăm scriptul de modificare a parolei
+            source modificare_parola.sh  
             ;;
         5)
             echo "Utilizatori logati: "
@@ -44,7 +44,7 @@ while true; do
             break
             ;;
         *)
-            echo "Opțiune invalidă. Vă rugăm să selectați din nou."
+            echo "Incearca o optiune valida "
             ;;
     esac
 done
