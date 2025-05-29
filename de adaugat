@@ -10,3 +10,7 @@ de modificat jocul ☑️
 de pus daca nu exista, creare utilizatori.csv☑️
 de modificat comentarii, variabile . in autentificare de modificat functia F1 de la id utilizator.
 
+sa iti ceara parola/sa facem un element nou 'cont' care sa contina numele utilizatorului care e conectat in momentul respectiv-astfel, nu poti deconecta alti utilizatori 
+si nu poti accesa functii in numele altor utilizator  ci doar pe contul tau(programul verifica ce utilizator este in momentul respectiv, si de exemplu daca 'cont' contine
+teo, nu te mai lasa sa dai autentificare deoarece nu este gol)
+de mutat 'iesire program' la final
