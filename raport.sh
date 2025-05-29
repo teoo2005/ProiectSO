@@ -7,7 +7,7 @@ linie=$(grep ",$nume," utilizatori.csv)
 
 if [ -z "$linie" ]; then
     echo "Eroare: Utilizatorul $nume nu este inregistrat.Inregistrati va mai intai."
-    exit 0
+    return
 fi
 
 # extragem id-ul  folosind sed , primul camp pana la prima virgula
