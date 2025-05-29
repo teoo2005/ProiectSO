@@ -29,7 +29,7 @@ while true; do
         fi
 
         # verificam daca email-ul exista deja
-        grep -q "^$email," utilizatori.csv
+        grep -q ",$email," utilizatori.csv
         if [ $? -eq 0 ]; then
             echo "Eroare: Adresa de email $email este deja inregistrata. Va rugam sa alegeti un alt email."
             continue
