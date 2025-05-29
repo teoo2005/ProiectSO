@@ -1,35 +1,33 @@
 #!/bin/bash
 
-echo "Introduceti numele utilizatorului pentru raport:"
+echo "Numele utilizator pentru raport:"
 read nume
 
-# Cautam linia utilizatorului in fisier
 linie=$(grep ",$nume," utilizatori.csv)
 
 if [ -z "$linie" ]; then
-    echo "Eroare: Utilizatorul $nume nu exista inregistrat. Va rugam sa va inregistrati mai intai."
-    echo "Va intoarceti in meniul principal."
+    echo "Eroare: Utilizatorul $nume nu este inregistrat.Inregistrati va mai intai."
     exit 0
 fi
 
 # Extragem id-ul utilizatorului folosind sed (primul camp pana la prima virgula)
 id=$(echo "$linie" | sed 's/,.*//')
 
-# Generam raportul asincron (in fundal)
+# raportul asincron (in fundal cum e pe gitbook )
 {
-    echo "Se genereaza raportul pentru utilizatorul $nume..."
+    echo "Se genereaza raportul pentru utilizatorul $nume "
     nrFis=$(find "/home/$id" -type f | wc -l) # pt putty ./$id
     nrDir=$(find "/home/$id" -type d | wc -l)
     dimensiune=$(du -sh "/home/$id" | sed 's/\s.*//')
 
     raport="/home/$id/raport.txt"             # pt putty ./$id
     echo "Raport pentru utilizatorul $nume" > "$raport"
-    echo "Numar de fisiere: $nrFis" >> "$raport"
-    echo "Numar de directoare: $nrDir" >> "$raport"
-    echo "Dimensiune totala pe disc: $dimensiune" >> "$raport"
+    echo "Numar de fisiere este de $nrFis" >> "$raport"
+    echo "Numar de directoare este de $nrDir" >> "$raport"
+    echo "Dimensiune totala pe disc este de $dimensiune" >> "$raport"
 
-    echo "Raportul a fost generat si salvat in: $raport"
+    
 } &
+echo "S-a  generat  raportull in: $raport"
 
-echo "Generarea raportului a pornit in fundal. Puteti continua folosirea programului."
 
