@@ -11,34 +11,32 @@ if [ -z "$contor" ]; then
     return
 fi
 
-# Extragem adresa de email din fisierul utilizatori.csv folosind sed
+# extragem adresa de email folosind sed
 email=$(echo "$contor" | sed 's/^[^,]*,[^,]*,\([^,]*\),.*$/\1/')
 
-# Generăm un cod de verificare simplu de 3 cifre, între 100 și 999
+# se genereaza un cod de 3 cifre
 cod_verificare=$((RANDOM % 900 + 100))  # Generează un număr aleatoriu între 100 și 999
 
-# Trimiterea unui email cu codul de verificare folosind msmtp
 echo -e "Subject: Cod Schimbre Parola \n\nCodul este: $cod_verificare " | msmtp $email
 
-
-# Solicităm codul de verificare de la utilizator
-echo "Introduceti codul de verificare de pe email:"
+# cod citi de la tastatura
+echo "Introduceti codul de verificare de pe email "
 read cod_utilizator
 
-# Verificăm dacă codul introdus de utilizator este corect
+# verificaam cele 2 coduri
 if [ "$cod_utilizator" != "$cod_verificare" ]; then
-    sleep 1 & echo "Codul este incorect. "
+    sleep 1 & echo "Codul scris este incorect "
     return
 fi
 
-# Daca codul este corect, se poate schimba parola
+# daca codul este corect se poate schimba parola
 echo "Pune ti parola noua:"
 read -s parolaNoua
 
-# Criptam parola si extragem hash-ul folosind sha256sum
+# criptare noua parola
 parolaNouaHash=$(echo -n "$parolaNoua" | sha256sum | sed 's/\s.*//')
 
-# Dupa extragerea hash-ului, se actualizează câmpul corespunzător în fișierul utilizatori.csv folosind sed
+# dupa ce se face hash-ul , il actualizam in fisier folosind sed
 sed -i "s/^\([^,]*,$nume,[^,]*,\)[^,]*/\1$parolaNouaHash/" utilizatori.csv
 
 echo "Parola a fost schimbata,  $nume."
