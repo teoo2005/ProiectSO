@@ -14,3 +14,4 @@ sa iti ceara parola/sa facem un element nou 'cont' care sa contina numele utiliz
 si nu poti accesa functii in numele altor utilizator  ci doar pe contul tau(programul verifica ce utilizator este in momentul respectiv, si de exemplu daca 'cont' contine
 teo, nu te mai lasa sa dai autentificare deoarece nu este gol)
 
+poate bagam sl la exit
