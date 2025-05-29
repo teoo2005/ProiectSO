@@ -6,7 +6,7 @@ while true; do
     echo -e "\nMeniu:"
     echo "Tasta 1 ->> Inregistrare"
     echo "Tasta 2 ->> Autentificare"
-    echo "Tasta 3 ->> Iesire din contr"
+    echo "Tasta 3 ->> Iesire din cont"
     echo "Tasta 4 ->> Schimbare parola"
     echo "Tasta 5 ->> Verificare utlog"
     echo "Tasta 6 ->> Joc "
