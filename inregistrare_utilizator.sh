@@ -84,7 +84,7 @@ while true; do
 
     # Trimiterea unui email de confirmare
     echo -e "Subject: Salut $nume, contul este gata!\n\nSalutare, $nume!\n\nContul tau a fost creeat cu succes.:)" | msmtp $email
-    echo "Email-ul a fost trimis la adresa $email."
+    echo "Email-ul a fost trimis la adresa $email."  | cowsay
 
     # Daca totul este corect, ramanem in directorul home al utilizatorului
     # cd "/home/$idUtilizator"
