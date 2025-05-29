@@ -8,7 +8,7 @@ echo "Apasa ENTER pentru a roti "
 while true; do
   read -r tasta
   if [[ -n "$tasta" ]]; then
-    echo "Joc terminat. Mult noroc data viitoare!"
+    echo "Mai mult noroc data viitoare"
     break
   fi
 
@@ -16,11 +16,11 @@ while true; do
   slot2=${simboluri[$RANDOM % ${#simboluri[@]}]}
   slot3=${simboluri[$RANDOM % ${#simboluri[@]}]}
 
-  echo "Rezultat: | $slot1 | $slot2 | $slot3 |"
+  echo "--- | $slot1 | $slot2 | $slot3 | ---"
 
   if [[ "$slot1" == "$slot2" && "$slot2" == "$slot3" ]]; then
-    echo "Felicitari! Ai castigat!"
+    echo "Bravo sefule ! Ai castigat!"
   else
-    echo "Mai incearca!"
+    echo "Mai incearca !"
   fi
 done
