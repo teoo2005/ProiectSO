@@ -64,7 +64,7 @@ fi
         read comanda
 
         if [ "$comanda" == "iesire" ]; then
-            cd /mnt/c/Users/teodo
+            cd /mnt/c/Users/teodo # aici asa am eu directorul, voi va puneti unde il rulati voi
             break  # iei utilizatorul inapoi in meniul principal
         else
             echo "Continua sa lucrezi in directorul tau personal..."
