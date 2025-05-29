@@ -11,7 +11,7 @@ while true; do
     echo "Tasta 5 ->> Iesire din program "
     echo "Tasta 6 ->> Joc "
     echo "Tasta 7 ->> Generare raport utilz "
-    echo " TAsta 8 ->> Verificare utlog"
+    echo "Tasta 8 ->> Verificare utlog"
     echo "Alegeți o opțiune:"
     read option
 
