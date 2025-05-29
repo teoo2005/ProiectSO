@@ -9,7 +9,7 @@ while true; do
     echo "Tasta 3 ->> Iesire din cont"
     echo "Tasta 4 ->> Schimbare parola"
     echo "Tasta 5 ->> Verificare utlog"
-    echo "Tasta 6 ->> Joc Jimmy "
+    echo "Tasta 6 ->> Joc  "
     echo "Tasta 7 ->> Generare raport utilz "
     echo "Tasta 8 ->> Iesire din program "
     echo "Alegeți o opțiune:"
