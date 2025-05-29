@@ -42,7 +42,7 @@ while true; do
     sed -i "s/^\([^,]*,$nume,[^,]*,[^,]*\).*/\1,$timp/" utilizatori.csv
 
     # extragere id-ul utilizatorului
-    id=$(echo "$contor" | sed 's/,.*//')
+   id=$(echo "$contor" | sed  's/^\([^,]*\),.*$/\1/') #id=$(echo "$contor" | sed 's/,.*//')
 
 #Verificare daca exista utilizator logat deja
 if [[ " ${utlog[@]} " =~ " $nume " ]]; then
