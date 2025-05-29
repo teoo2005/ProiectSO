@@ -18,11 +18,11 @@ id=$(echo "$linie" | sed 's/,.*//')
 # Generam raportul asincron (in fundal)
 {
     echo "Se genereaza raportul pentru utilizatorul $nume..."
-    nrFis=$(find "/home/$id" -type f | wc -l)
+    nrFis=$(find "/home/$id" -type f | wc -l) # pt putty ./$id
     nrDir=$(find "/home/$id" -type d | wc -l)
     dimensiune=$(du -sh "/home/$id" | sed 's/\s.*//')
 
-    raport="/home/$id/raport.txt"
+    raport="/home/$id/raport.txt"             # pt putty ./$id
     echo "Raport pentru utilizatorul $nume" > "$raport"
     echo "Numar de fisiere: $nrFis" >> "$raport"
     echo "Numar de directoare: $nrDir" >> "$raport"
