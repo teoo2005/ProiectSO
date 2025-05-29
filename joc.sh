@@ -1,36 +1,26 @@
+
 #!/bin/bash
 
-echo "Joc: piatra, foarfeca, hartie"
-echo "Alege: piatra, foarfeca sau hartie"
-read alegere
+simboluri=("PRUNE" "LAMAI" "7" "BAR" "STAR")
 
-# vector de optiuni
-PFH=("piatra" "foarfeca" "hartie")
+echo "Apasa ENTER pentru a roti "
 
-# joc- adica ce alege calculatorul cu functia random
-joc=${PFH[$RANDOM % 3]}
+while true; do
+  read -r tasta
+  if [[ -n "$tasta" ]]; then
+    echo "Joc terminat. Mult noroc data viitoare!"
+    break
+  fi
 
-echo "Calculatorul a ales: $joc"
+  slot1=${simboluri[$RANDOM % ${#simboluri[@]}]}
+  slot2=${simboluri[$RANDOM % ${#simboluri[@]}]}
+  slot3=${simboluri[$RANDOM % ${#simboluri[@]}]}
 
-# facem o serie de if uri sa abordam taote cazurile
-if [ "$alegere" == "$joc" ]; then
-    echo "EGALTATE!"
-elif [ "$alegere" == "piatra" ]; then
-    if [ "$joc" == "foarfeca" ]; then
-        echo "BRAVO MA ! Ai castigat!"
-    else
-        echo "Calculatorul a castigat!"
-    fi
-elif [ "$alegere" == "foarfeca" ]; then
-    if [ "$joc" == "hartie" ]; then
-        echo "BRAVO MA ! Ai castigat!"
-    else
-        echo "Calculatorul a castigat!"
-    fi
-elif [ "$alegere" == "hartie" ]; then
-    if [ "$joc" == "piatra" ]; then
-        echo "BRAVO MA ! Ai castigat!"
-    else
-        echo "Calculatorul a castigat!"
-    fi
-fi
+  echo "Rezultat: | $slot1 | $slot2 | $slot3 |"
+
+  if [[ "$slot1" == "$slot2" && "$slot2" == "$slot3" ]]; then
+    echo "Felicitari! Ai castigat!"
+  else
+    echo "Mai incearca!"
+  fi
+done
