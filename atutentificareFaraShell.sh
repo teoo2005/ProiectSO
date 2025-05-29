@@ -55,7 +55,7 @@ fi
     echo "Acum esti autenfificat."
 
         echo "Autentificare reusita! Esti acum in directorul tau personal: /home/$id"
-       cd "/home/$id" || exit 1 # daca nu merge, te scoate in main , inseamna ca o dat eroare
+       cd "/home/$id"    # || exit 1  daca nu merge, te scoate in main , inseamna ca o dat eroare
        $SHELL # inlocuieste procesul curent shell cu un nou shell în directorul utilizatorului
 
        # Loop-ul pentru activitatea utilizatorului in directorul sau personal
@@ -64,7 +64,8 @@ fi
         read comanda
 
         if [ "$comanda" == "iesire" ]; then
-            cd /mnt/c/Users/teodo # aici asa am eu directorul, voi va puneti unde il rulati voi
+            cd /mnt/c/Users/teodo # aici asa am eu directorul, voi va puneti unde il rulati voi, special pt fiecare
+                                  #pt putty  cd /home/stud1018
             break  # iei utilizatorul inapoi in meniul principal
         else
             echo "Continua sa lucrezi in directorul tau personal..."
