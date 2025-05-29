@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set +m
 echo "Numele utilizator pentru raport:"
 read nume
 
@@ -14,13 +14,13 @@ fi
 id=$(echo "$linie" | sed 's/,.*//')
 
 # raportul asincron (in fundal cum e pe gitbook )
+raport="/home/$id/raport.txt"             # pt putty ./$id
 {
     echo "Se genereaza raportul pentru utilizatorul $nume "
     nrFis=$(find "/home/$id" -type f | wc -l) # pt putty ./$id
     nrDir=$(find "/home/$id" -type d | wc -l)
     dimensiune=$(du -sh "/home/$id" | sed 's/\s.*//')
 
-    raport="/home/$id/raport.txt"             # pt putty ./$id
     echo "Raport pentru utilizatorul $nume" > "$raport"
     echo "Numar de fisiere este de $nrFis" >> "$raport"
     echo "Numar de directoare este de $nrDir" >> "$raport"
