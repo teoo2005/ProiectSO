@@ -8,10 +8,10 @@ while true; do
     echo "Tasta 2 ->> Autentificare"
     echo "Tasta 3 ->> Iesire din contr"
     echo "Tasta 4 ->> Schimbare parola"
-    echo "Tasta 5 ->> Iesire din program "
+    echo "Tasta 5 ->> Verificare utlog"
     echo "Tasta 6 ->> Joc "
     echo "Tasta 7 ->> Generare raport utilz "
-    echo "Tasta 8 ->> Verificare utlog"
+    echo "Tasta 8 ->> Iesire din program "
     echo "Alegeți o opțiune:"
     read option
 
@@ -29,9 +29,10 @@ while true; do
             source modificare_parola.sh  # Apelăm scriptul de modificare a parolei
             ;;
         5)
-            echo "Ieșire din program."
-            break
+            echo "Utilizatori logati: "
+            echo "${utlog[@]}"
             ;;
+            
         6) 
             source joc.sh
             ;;
@@ -39,8 +40,8 @@ while true; do
             source raport.sh
             ;;
             8)
-            echo "Utilizatori logati: "
-            echo "${utlog[@]}"
+            echo "Ieșire din program."
+            break
             ;;
         *)
             echo "Opțiune invalidă. Vă rugăm să selectați din nou."
