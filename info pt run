@@ -21,7 +21,8 @@ Scriptul principal (managerul) coordonează întregul proces, iar utilizatorii p
 
 Dacă ai întrebări suplimentare sau vrei să adaugi funcționalități noi, îți stau la dispoziție!
 
-
+./ la toate cd , raport 
+chmode 777 director, pentru fiecare director unde vreau sa generez raportul sau sa fac fisiere 
 
 
 
