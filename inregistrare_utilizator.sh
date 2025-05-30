@@ -10,7 +10,7 @@ while true; do
     read nume
 
     # verificam daca este utilizator existent cu acest nume
-    grep -q ",$nume," utilizatori.csv            # -q doar returneaza 0 daca a gasit  sau 1
+    grep -q ",$nume," utilizatori.csv            #  0 daca a gasit  
     if [ $? -eq 0 ]; then                        
         echo "EROARE! Utilizatorul $nume exista deja. Alegeti alt nume ."
         continue
@@ -22,7 +22,7 @@ while true; do
         read email
 
         # verificam daca email-ul este cu gmail.com la final
-        echo "$email" | grep -E -q "@gmail\.com$"    # -E e folosit ca sa trateze toate expresiile regulate
+        echo "$email" | grep -E -q "@gmail\.com$"    
         if [ $? -ne 0 ]; then
             echo "EROARE! Adresa de email trebuie sa fie de tipul @gmail.com. "
             continue
@@ -62,7 +62,7 @@ while true; do
     parolaHash=$(echo -n "$parola" | sha256sum | sed 's/\s.*//')
 
     # calcul pt  id utiliz
-    numarLinii=$(wc -l < utilizatori.csv)   # numarul de linii din fisier
+    numarLinii=$(wc -l < utilizatori.csv)   
     idUtilizator=$((numarLinii + 1))         # adaugam 1 pentru a obtine ID-ul , fiindca se incepe de la 0 
 
     # creem directorul home pentru utilizator 
