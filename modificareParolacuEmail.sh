@@ -15,7 +15,7 @@ fi
 email=$(echo "$contor" | sed 's/^[^,]*,[^,]*,\([^,]*\),.*$/\1/')
 
 # se genereaza un cod de 3 cifre
-cod_verificare=$((RANDOM % 900 + 100))  # Generează un număr aleatoriu între 100 și 999
+cod_verificare=$((RANDOM % 900 + 100))  #generam un nr de 3 cifre
 
 echo -e "Subject: Cod Schimbre Parola \n\nCodul este: $cod_verificare " | msmtp $email
 
