@@ -11,7 +11,7 @@ while true; do
     if [ -z "$contor" ]; then
         echo "EROARE! Utilizatorul $nume nu exista. Inregistreaza te mai intai."
         echo "Mergi in meniu la sectia de inregistrare."
-     break  #break folosim ca sa iasa din script si sa te poti duce inapoi in main
+     break  
     fi
 
     # extragem parola stocata deja , cea cu hash
